@@ -25,7 +25,7 @@ layout= html.Div([
             placeholder = 'yyyy-mm-dd',style = {'border-radius':'50px', 'text-align':'center'})],
             style = {'text-align':'center'})),
              dbc.Col(html.Div([html.Label('Input endDate'),dcc.Input(id = 'end-date', type='text', minLength=10,maxLength=10,
-              value='2023-12-31', placeholder = 'yyyy-mm-dd',style ={'border-radius':'50px', 'text-align':'center'})],
+              value='2023-12-29', placeholder = 'yyyy-mm-dd',style ={'border-radius':'50px', 'text-align':'center'})],
             style = {'text-align':'center'})),
              dbc.Col(dbc.Button('Submit',id='date-inputerbutton',
                 n_clicks=0, style={'background-color':'black'}))

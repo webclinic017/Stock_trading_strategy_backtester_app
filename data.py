@@ -22,7 +22,7 @@ class stock_data_api:
         data= r.json()
         #convert to pandas df
         df= pd.DataFrame().from_dict(data['Time Series (Daily)'], orient='index')
-        set index col name to 'date'
+        #set index col name to 'date'
         df.index.name= 'Date'
         #ensure column names are of approriate format
         df.columns= [col[3:].capitalize() for col in df.columns.to_list()]

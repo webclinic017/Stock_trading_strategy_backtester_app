@@ -58,18 +58,18 @@ class chart_selector:
             #instantiate 'api_data' class from data.py library
             api= stock_data_api(ticker)
             df= api.get_data_from_api()
-            # #instantiate 'dbrepo' class from data.py library
-            # repo= Db_Repo()
-            # #setup connection to execute and commit changes to the db based on the below query
-            # with engine.connect() as conn:
-            #     conn.execute(text(f'Drop Table If Exists "{ticker}"'))
-            #     conn.commit()
-            # #insert data into database
-            # repo.insert_data(table_name=ticker, records=data)
-            # #load data from table
-            # df=repo.read_data(ticker)
-            # #search through dataframe to get data between 'start_date' and 'end_date'
-            # df= df.filter(pl.col('Date').is_between(datetime.strptime(start_date, '%Y-%m-%d'), datetime.strptime(end_date, '%Y-%m-%d')))
+            #instantiate 'dbrepo' class from data.py library
+            repo= Db_Repo()
+            #setup connection to execute and commit changes to the db based on the below query
+            with engine.connect() as conn:
+                conn.execute(text(f'Drop Table If Exists "{ticker}"'))
+                conn.commit()
+            #insert data into database
+            repo.insert_data(table_name=ticker, records=data)
+            #load data from table
+            df=repo.read_data(ticker)
+            #search through dataframe to get data between 'start_date' and 'end_date'
+            df= df.filter(pl.col('Date').is_between(datetime.strptime(start_date, '%Y-%m-%d'), datetime.strptime(end_date, '%Y-%m-%d')))
         return df
 
     def plot_return(self, ticker, start_date, end_date):
@@ -92,16 +92,13 @@ class chart_selector:
 
     #function to plot price using quantfig library
     def plot_price_only(self, ticker, start_date, end_date):
-        api= stock_data_api(ticker)
-        df= api.get_data_from_api()
-        # data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)
-        return df
-        # data= data.to_pandas()
-        # data.set_index('Date', inplace=True)
-        # qf= cf.quant_figure.QuantFig(data, title= f"{ticker}'s stock price", legend= 'top', name= f'{ticker}')
-        # qf.add_rsi(periods= 7, rsi_upper= 80, rsi_lower= 20)
-        # qf.add_volume()
-        # return qf.iplot(asFigure=True)
+        data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)
+        data= data.to_pandas()
+        data.set_index('Date', inplace=True)
+        qf= cf.quant_figure.QuantFig(data, title= f"{ticker}'s stock price", legend= 'top', name= f'{ticker}')
+        qf.add_rsi(periods= 7, rsi_upper= 80, rsi_lower= 20)
+        qf.add_volume()
+        return qf.iplot(asFigure=True)
     
     #observe simple moving averages
     def plot_sma_rsi(self, ticker, start_date, end_date):

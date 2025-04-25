@@ -57,19 +57,19 @@ class chart_selector:
         else:
             #instantiate 'api_data' class from data.py library
             api= stock_data_api(ticker)
-            data= api.get_data_from_api()
-            #instantiate 'dbrepo' class from data.py library
-            repo= Db_Repo()
-            #setup connection to execute and commit changes to the db based on the below query
-            with engine.connect() as conn:
-                conn.execute(text(f'Drop Table If Exists "{ticker}"'))
-                conn.commit()
-            #insert data into database
-            repo.insert_data(table_name=ticker, records=data)
-            #load data from table
-            df=repo.read_data(ticker)
-            #search through dataframe to get data between 'start_date' and 'end_date'
-            df= df.filter(pl.col('Date').is_between(datetime.strptime(start_date, '%Y-%m-%d'), datetime.strptime(end_date, '%Y-%m-%d')))
+            df= api.get_data_from_api()
+            # #instantiate 'dbrepo' class from data.py library
+            # repo= Db_Repo()
+            # #setup connection to execute and commit changes to the db based on the below query
+            # with engine.connect() as conn:
+            #     conn.execute(text(f'Drop Table If Exists "{ticker}"'))
+            #     conn.commit()
+            # #insert data into database
+            # repo.insert_data(table_name=ticker, records=data)
+            # #load data from table
+            # df=repo.read_data(ticker)
+            # #search through dataframe to get data between 'start_date' and 'end_date'
+            # df= df.filter(pl.col('Date').is_between(datetime.strptime(start_date, '%Y-%m-%d'), datetime.strptime(end_date, '%Y-%m-%d')))
         return df
 
     def plot_return(self, ticker, start_date, end_date):

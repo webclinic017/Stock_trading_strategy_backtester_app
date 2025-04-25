@@ -57,7 +57,7 @@ class chart_selector:
         else:
             #instantiate 'api_data' class from data.py library
             api= stock_data_api(ticker)
-            df= api.get_data_from_api()
+            data= api.get_data_from_api()
             #instantiate 'dbrepo' class from data.py library
             repo= Db_Repo()
             #setup connection to execute and commit changes to the db based on the below query

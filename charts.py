@@ -93,12 +93,14 @@ class chart_selector:
     #function to plot price using quantfig library
     def plot_price_only(self, ticker, start_date, end_date):
         data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)
-        data= data.to_pandas()
-        data.set_index('Date', inplace=True)
-        qf= cf.quant_figure.QuantFig(data, title= f"{ticker}'s stock price", legend= 'top', name= f'{ticker}')
-        qf.add_rsi(periods= 7, rsi_upper= 80, rsi_lower= 20)
-        qf.add_volume()
-        return qf.iplot(asFigure=True)
+        return data
+        # data= data.to_pandas()
+        # data.set_index('Date', inplace=True)
+        # qf= cf.quant_figure.QuantFig(data, title= f"{ticker}'s stock price", legend= 'top', name= f'{ticker}')
+        # qf.add_rsi(periods= 7, rsi_upper= 80, rsi_lower= 20)
+        # qf.add_volume()
+        # return qf.iplot(asFigure=True)
+    
     #observe simple moving averages
     def plot_sma_rsi(self, ticker, start_date, end_date):
         data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)

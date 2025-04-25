@@ -92,8 +92,10 @@ class chart_selector:
 
     #function to plot price using quantfig library
     def plot_price_only(self, ticker, start_date, end_date):
-        data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)
-        return data
+        api= stock_data_api(ticker)
+        df= api.get_data_from_api()
+        # data= self.wrangle(ticker=ticker, start_date=start_date, end_date=end_date)
+        return df
         # data= data.to_pandas()
         # data.set_index('Date', inplace=True)
         # qf= cf.quant_figure.QuantFig(data, title= f"{ticker}'s stock price", legend= 'top', name= f'{ticker}')

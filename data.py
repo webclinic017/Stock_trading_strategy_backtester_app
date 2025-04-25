@@ -19,9 +19,9 @@ class stock_data_api:
         #send get request
         r= requests.get(url)
         #get the json data
-        data= r.json()
+        api_data= r.json()
         #convert to pandas df
-        df= pd.DataFrame().from_dict(data['Time Series (Daily)'], orient='index')
+        df= pd.DataFrame().from_dict(api_data['Time Series (Daily)'], orient='index')
         #set index col name to 'date'
         df.index.name= 'Date'
         #ensure column names are of approriate format

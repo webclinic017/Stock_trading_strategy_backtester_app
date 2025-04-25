@@ -76,7 +76,7 @@ layout= html.Div([
             style=right_sidebar, color ='dark', dark = True)
         ], width=4),
     ], fluid=True),
-], style={"margin-top":"89px"})
+], style={"margin-top":"100px"})
 #create callbacks to output chart
 @callback(
     Output(component_id='output-chart', component_property='figure'),

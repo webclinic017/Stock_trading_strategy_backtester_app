@@ -12,8 +12,8 @@ import pandas as pd
 import polars as pl
 from datetime import datetime
 from sqlalchemy import create_engine, text, URL
-from dotenv import load_dotenv
 from data import stock_data_api, Db_Repo
+from dotenv import load_dotenv
 load_dotenv()
 
 class chart_selector:

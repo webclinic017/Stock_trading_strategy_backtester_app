@@ -15,29 +15,29 @@ class stock_data_api:
     #load data from api
     def get_data_from_api(self):
         #url
-        url= f'http://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={self.ticker}&outputsize=full&apikey={self.api_key}'
+        url= f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={self.ticker}&outputsize=full&apikey={self.api_key}'
         #send get request
         r= requests.get(url)
         #get the json data
         api_data= r.json()
-        #convert to pandas df
-        df= pd.DataFrame().from_dict(api_data['Time Series (Daily)'], orient='index')
+        # #convert to pandas df
+        # df= pd.DataFrame().from_dict(api_data['Time Series (Daily)'], orient='index')
         #set index col name to 'date'
-        df.index.name= 'Date'
-        #ensure column names are of approriate format
-        df.columns= [col[3:].capitalize() for col in df.columns.to_list()]
-        #convert to polars df
-        df= pl.from_pandas(df, include_index=True)
-        #convert columns to their appropriate data types
-        df= df.with_columns(
-            pl.col('Date').cast(pl.Date),
-            pl.col('Open').cast(pl.Float64),
-            pl.col('High').cast(pl.Float64),
-            pl.col('Low').cast(pl.Float64),
-            pl.col('Close').cast(pl.Float64),
-            pl.col('Volume').cast(pl.Float64)
-        )
-        return df
+        # df.index.name= 'Date'
+        # #ensure column names are of approriate format
+        # df.columns= [col[3:].capitalize() for col in df.columns.to_list()]
+        # #convert to polars df
+        # df= pl.from_pandas(df, include_index=True)
+        # #convert columns to their appropriate data types
+        # df= df.with_columns(
+        #     pl.col('Date').cast(pl.Date),
+        #     pl.col('Open').cast(pl.Float64),
+        #     pl.col('High').cast(pl.Float64),
+        #     pl.col('Low').cast(pl.Float64),
+        #     pl.col('Close').cast(pl.Float64),
+        #     pl.col('Volume').cast(pl.Float64)
+        # )
+        return api_data
             
 class Db_Repo:
     #setup init values

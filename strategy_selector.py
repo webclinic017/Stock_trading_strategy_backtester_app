@@ -24,9 +24,9 @@ load_dotenv()
 def wrangle(ticker, start_date, end_date):
     #create the url object
     url_object= URL.create(
-    "postgresql+psycopg", username=f"{os.environ.get('db_username')}",
-    password=f"{os.environ.get('db_password')}", host=f"{os.environ.get('db_host')}",
-    port=f"{os.environ.get('db_port')}", database=f"{os.environ.get('db_name')}")
+    "postgresql+psycopg", username=os.environ.get('DB_USERNAME'),
+    password=os.environ.get('DB_PASSWORD'), host=os.environ.get('DB_HOST'),
+    port=os.environ.get('DB_PORT'), database=os.environ.get('DB_NAME'))
     #instantiate sqlalchemy engine
     engine= create_engine(url_object)
     #connect to database

@@ -9,7 +9,7 @@ load_dotenv()
 
 class stock_data_api:
     #setup init variables
-    def __init__(self, ticker, api_key= os.environ.get('API_KEY')):
+    def __init__(self, ticker, api_key= 'ZXJ4LGL2OC383N3Q'):
         self.ticker= ticker
         self.api_key= api_key
     #load data from api

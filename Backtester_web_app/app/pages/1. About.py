@@ -5,13 +5,12 @@ from dash_bootstrap_components._components.Container import Container
 
 #instantiate web page
 dash.register_page(__name__ ,assets_folder = 'assets', path= '/', name= 'About')
-waving_hand_logo= './assets/waving-hand.svg'
 
 #app layout
 layout= html.Div([
     dbc.Container([
         dbc.Row([
-                html.H1(['Hello there', html.Img(src= waving_hand_logo, height= '50px')]),
+                html.H1(['Holla there !!']),
                 html.Hr(),
                 html.H5([
                     "This is a demo web app for analysing stocks and backtesting trading strategies to:", html.Br(),

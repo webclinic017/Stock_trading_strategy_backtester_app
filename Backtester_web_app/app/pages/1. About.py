@@ -33,4 +33,4 @@ layout= html.Div([
                ], style={'font-weight':'Bold'})
         ]),
     ], fluid= True)   
-],style= {"margin-top":"90px", "margin-left":"60px"})
+],style= {"margin-top":"100px", "margin-left":"60px"})

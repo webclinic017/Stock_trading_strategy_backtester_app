@@ -9,27 +9,28 @@ load_dotenv()
 
 class stock_data_api:
     #setup init variables
-    def __init__(self, ticker, api_key= 'ZXJ4LGL2OC383N3Q'):
+    def __init__(self, ticker, api_key= os.environ.get('API_KEY')):
         self.ticker= ticker
         self.api_key= api_key
     #load data from api
     def get_data_from_api(self):
-        #url
-        url= f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={self.ticker}&outputsize=full&apikey={self.api_key}'
-        #send get request
-        r= requests.get(url)
-        #get the json data
-        data= r.json()
-        #convert to pandas df
-        df= pd.DataFrame().from_dict(data['Time Series (Daily)'], orient='index')
-        #set index col name to 'date'
-        df.index.name= 'Date'
-        #ensure column names are of approriate format
-        df.columns= [col[3:].capitalize() for col in df.columns.to_list()]
-        #convert to polars df
-        df= pl.from_pandas(df, include_index=True)
-        #convert columns to their appropriate data types
-        df= df.with_columns(
+        #extract data from api
+        url = f'https://api.twelvedata.com/time_series?symbol={self.ticker}&interval=1day&outputsize=5000&apikey={self.api_key}'
+        r = requests.get(url)
+        data = r.json()
+        #A load and transform data in a pandas dataframe with the following steps
+        df= pd.DataFrame().from_dict(data['values']) #1 load the specific json key
+        #rename 'datetime' column to 'date'
+        df.rename(columns={'datetime':'date'}, inplace=True)
+        #capitalize first letter of all column names
+        column_list= [column.capitalize() for column in df.columns.to_list()]
+        df.columns= column_list
+        #set 'date' column as index
+        df.set_index('Date', inplace=True)
+        #B load pandas dataframe into a polars dataframe with the following steps
+        df2= pl.from_pandas(df, include_index=True)
+        #convert columns to their appropriate datatypes
+        df3= df2.with_columns(
             pl.col('Date').cast(pl.Date),
             pl.col('Open').cast(pl.Float64),
             pl.col('High').cast(pl.Float64),
@@ -37,7 +38,7 @@ class stock_data_api:
             pl.col('Close').cast(pl.Float64),
             pl.col('Volume').cast(pl.Float64)
         )
-        return df
+        return df3
             
 class Db_Repo:
     #setup init values

@@ -27,7 +27,7 @@ layout= html.Div([
             "for some basic technical analysis if you so desire.",html.Br(),
            "2. Proceed to the Backtest Strategies page to choose from a dropdown of simulated strategies suitable to your trading goals.",html.Br(),
             "Offcourse, after having selected your desired stock and trading year.",html.Br(),
-            "Ok! thats basically all. We used postgres for the database and alphavantage api for all the data brouhaha needed", html.Br(),
+            "Ok! thats basically all. We used postgres for the database and the generous twelvedata api for all the data brouhaha needed", html.Br(),
               "Reach out to me on linkedin, star the project on github (Click the image on the Navbar).",html.Br(),
                "Wishing you an insightful analysis!!!!"
                ], style={'font-weight':'Bold'})
